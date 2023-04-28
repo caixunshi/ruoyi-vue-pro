@@ -257,6 +257,7 @@
 				this.$emit("cancel");
 			},
 			pickerConfirm(){
+        console.log("pickerConfirm", this.confirmFlag)
 				if(!this.confirmFlag){
 					return;
 				};

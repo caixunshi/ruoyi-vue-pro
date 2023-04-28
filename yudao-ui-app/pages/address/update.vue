@@ -146,6 +146,7 @@ export default {
       }
     },
     onConfirm(res) {
+      console.log("res:",res);
       this.formData.areaText = res.result
       this.formData.areaCode = res.value[2]
     },

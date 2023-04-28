@@ -1,149 +1,151 @@
 <template>
   <view class="container">
-    <!--搜索栏-->
-    <u-sticky style="top: 0" offset-top="0">
+    <u-sticky offset-top="0">
+      <!--轮播图-->
+      <yd-banner :banner-list="bannerList"></yd-banner>
+      <!--搜索栏-->
       <view class="search-wrap">
-        <u-search placeholder="搜索" disabled height="32" :show-action="false" @click="handleSearchClick"></u-search>
+        <u-search :label="addressText" bgColor="" border-color="#f2f2f2" :searchIcon="searchIcon" searchIconSize="10"
+          placeholder="请搜索" :show-action="true"  @clickIcon="hideKeyboard()">
+        </u-search>
+        <w-picker :visible.sync="regionVisible" mode="region" :value="defaultRegion" default-type="value"
+          :hide-area="false" @confirm="onConfirm($event, 'region')" @cancel="onCancel" ref="region"></w-picker>
       </view>
     </u-sticky>
+    <u-list>
+      <u-list-item>
+        <u-cell v-for="(item, index) in storeList" :key="index">
+          <view slot="title">
+            <u-row customStyle="">
+              <u-col span="10">
+                <u--text size="14" :bold="true" :text="item.storeName"></u--text>
+              </u-col>
+              <u-col span="2">
+                <u--text size="12" color="red" align="center" :text="item.distance"></u--text>
+              </u-col>
+            </u-row>
+            <u-row style="margin-top: 5px;">
+              <span v-for="(labelItem, labelIndex) in item.labels" :key="labelIndex">
+                <u-tag style="margin-right: 5px;" shape="circle" size="mini" :text="labelItem" color="#ccc"
+                  borderColor="#ccc" plain></u-tag>
+              </span>
+            </u-row>
+            <u-row style="margin-top: 10px;">
+              <u-tag :text="item.status" color="#007aff" borderColor="#ccc" bgColor="#ccc" size="mini" plain plainFill>
+              </u-tag>
+              <span style="font-size: 12px;margin-left: 5px;color:orangered">营业时间</span>
+              <span style="font-size: 12px;margin-left: 5px;color:orangered">{{item.openTime}}</span>
+            </u-row>
+            <u-row style="margin-top: 10px;">
+              <u-icon size="20" name="phone" color="#ccc"></u-icon>
+              <u--text :text="item.mobile" size="12"></u--text>
+            </u-row>
+            <u-row style="margin-top: 10px;">
+              <u-col span="10">
+                <u--text :lines="1" prefixIcon="map" :text="item.address" size="12"></u--text>
+              </u-col>
+              <u-col span="2">
+                <navigator class="fixed-btn-box" url="/pages/store/store" open-type="navigate" hover-class="none">
+                  <u-button size="mini" class="custom-style" shape="circle" color="red" text="去剪发"></u-button>
+                </navigator>
+              </u-col>
+            </u-row>
+          </view>
+        </u-cell>
+      </u-list-item>
+    </u-list>
 
-    <!--轮播图-->
-    <yd-banner :banner-list="bannerList"></yd-banner>
-
-    <u-gap height="20px"></u-gap>
-
-    <!--宫格菜单按钮-->
-    <u-grid :border="false" col="4">
-      <u-grid-item v-for="(item, index) in menuList" :key="index">
-        <u-icon :name="item.icon" :size="40"></u-icon>
-        <text class="grid-title">{{ item.title }}</text>
-      </u-grid-item>
-    </u-grid>
-
-    <u-gap height="15px"></u-gap>
-
-    <!--消息滚动栏-->
-    <u-notice-bar style="padding: 13px 12px" :text="noticeList" mode="link" direction="column" @click="click"></u-notice-bar>
-
-    <!--商品展示栏-->
-    <yd-product-box :product-list="productList" :title="'每日上新'" show-type="normal"></yd-product-box>
-    <yd-product-box :product-list="productList" :title="'热卖商品'" show-type="half"></yd-product-box>
-    <yd-product-more :product-list="productList" :more-status="moreStatus"></yd-product-more>
-
-    <u-gap height="5px"></u-gap>
+    <u-gap height="50px"></u-gap>
   </view>
 </template>
 
 <script>
-import { getBannerData, getNoticeData } from '../../api/index'
-
-export default {
-  components: {},
-  data() {
-    return {
-      bannerList: [
-        {
-          id: 1,
-          title: '山不在高，有仙则名',
-          url: 'https://cdn.uviewui.com/uview/swiper/swiper1.png'
-        },
-        {
-          id: 2,
-          title: '水不在深，有龙则灵',
-          url: 'https://cdn.uviewui.com/uview/swiper/swiper2.png'
-        },
-        {
-          id: 3,
-          title: '斯是陋室，惟吾德馨',
-          url: 'https://cdn.uviewui.com/uview/swiper/swiper3.png'
-        }
-      ],
-      menuList: [
-        { icon: 'gift', title: '热门推荐' },
-        { icon: 'star', title: '收藏转发' },
-        { icon: 'thumb-up', title: '点赞投币' },
-        { icon: 'heart', title: '感谢支持' }
-      ],
-      noticeList: ['寒雨连江夜入吴', '平明送客楚山孤', '洛阳亲友如相问', '一片冰心在玉壶'],
-      productList: [
-        {
-          id: 1,
-          image: 'https://cdn.uviewui.com/uview/album/1.jpg',
-          title: '山不在高，有仙则名。水不在深，有龙则灵。斯是陋室，惟吾德馨。',
-          desc: '山不在于高，有了神仙就会有名气。水不在于深，有了龙就会有灵气。这是简陋的房子，只是我品德好就感觉不到简陋了。',
-          price: '13.00'
-        },
-        {
-          id: 2,
-          image: 'https://cdn.uviewui.com/uview/album/2.jpg',
-          title: '商品222',
-          desc: '',
-          price: '23.00'
-        },
-        {
-          id: 3,
-          image: 'https://cdn.uviewui.com/uview/album/3.jpg',
-          title: '商品333',
-          desc: '商品描述信息2',
-          price: '33.00'
-        },
-        {
-          id: 4,
-          image: 'https://cdn.uviewui.com/uview/album/4.jpg',
-          title: '商品444',
-          desc: '商品描述信息4',
-          price: '43.00'
-        },
-        {
-          id: 5,
-          image: 'https://cdn.uviewui.com/uview/album/5.jpg',
-          title: '商品555',
-          desc: '商品描述信息5',
-          price: '53.00'
-        }
-      ],
-      moreStatus: 'nomore'
-    }
-  },
-  onLoad() {
-    this.loadBannerData()
-    this.loadNoticeData()
-  },
-  methods: {
-    loadBannerData() {
-      getBannerData().then(res => {
-        this.bannerList = res.data
-      })
+  import {
+    getBannerData,
+    getNoticeData
+  } from '../../api/index'
+  import {
+    getAddressById,
+    updateAddress
+  } from '../../api/address'
+  export default {
+    components: {},
+    data() {
+      return {
+        regionVisible: false,
+        addressText: "深圳市 宝安区",
+        addressCode: [],
+        searchIcon: "arrow-down-fill",
+        bannerList: [{
+            id: 1,
+            title: '山不在高，有仙则名',
+            url: 'https://img1.baidu.com/it/u=3298304243,1273560633&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500'
+          },
+          {
+            id: 2,
+            title: '水不在深，有龙则灵',
+            url: 'https://cdn.uviewui.com/uview/swiper/swiper3.png'
+          },
+          {
+            id: 3,
+            title: '斯是陋室，惟吾德馨',
+            url: 'https://cdn.uviewui.com/uview/swiper/swiper3.png'
+          }
+        ],
+        storeList: [{
+            storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          }
+        ],
+        defaultRegion: ["440000", "440300", "440306"]
+      }
     },
-    loadNoticeData() {
-      getNoticeData().then(res => {
-        this.noticeList = res.data
-      })
+    onLoad() {
+      this.loadBannerData()
     },
-    handleSearchClick(e) {
-      uni.$u.route('/pages/search/search')
-    }
-  },
-  computed: {
-    noticeTextList() {
-      return this.noticeList.map(item => {
-        if (item.title) {
-          return item.title
-        }
-      })
+    methods: {
+      loadBannerData() {
+        getBannerData().then(res => {
+          this.bannerList = res.data
+        })
+      },
+      handleSearchClick(e) {
+        uni.$u.route('/pages/search/search')
+      },
+      onConfirm(res) {
+        console.log("confirm", res);
+        this.searchIcon = "arrow-down-fill"
+        this.addressCode = res.value;
+        this.addressText = res.obj.city.label + " " + res.obj.area.label
+      },
+      onCancel() {
+        this.searchIcon = "arrow-down-fill"
+      },
+      hideKeyboard() {
+        this.searchIcon = "arrow-up-fill"
+        this.regionVisible = true;
+        console.log("hiden key board")
+        uni.hideKeyboard()
+      }
+    },
+    computed: {
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-.search-wrap {
-  background: $custom-bg-color;
-  padding: 20rpx;
-}
+  .search-wrap {
+    background: $custom-bg-color;
+    padding: 20rpx;
+  }
 
-.grid-title {
-  line-height: 50rpx;
-  font-size: 26rpx;
-}
+  .grid-title {
+    line-height: 50rpx;
+    font-size: 26rpx;
+  }
 </style>
