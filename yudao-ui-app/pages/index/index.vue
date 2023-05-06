@@ -41,7 +41,7 @@
               <u--text :text="item.mobile" size="12"></u--text>
             </u-row>
             <u-row style="margin-top: 10px;">
-              <u-col span="10">
+              <u-col span="10" @click="openLocation()">
                 <u--text :lines="1" prefixIcon="map" :text="item.address" size="12"></u--text>
               </u-col>
               <u-col span="2">
@@ -172,9 +172,25 @@
       }
     },
     onLoad() {
-      this.loadBannerData()
+      // 加载banner数据
+      // this.loadBannerData()
     },
     methods: {
+      openLocation() {
+        console.log("xxxxxx");
+        // wx.getLocation({
+        //  type: 'gcj02', //Returns the latitude and longitude that can be used for wx.openLocation
+        //  success (res) {
+        //    const latitude = res.latitude
+        //    const longitude = res.longitude
+        //    wx.openLocation({
+        //      latitude,
+        //      longitude,
+        //      scale: 18
+        //    })
+        //  }
+        // })
+      },
       loadBannerData() {
         getBannerData().then(res => {
           this.bannerList = res.data
