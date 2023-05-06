@@ -628,3 +628,25 @@ CREATE TABLE IF NOT EXISTS "system_notify_message" (
     "tenant_id" bigint not null default  '0',
     PRIMARY KEY ("id")
 ) COMMENT '站内信消息表';
+
+-- 将该建表 SQL 语句，添加到 yudao-module-t-biz 模块的 test/resources/sql/create_tables.sql 文件里
+CREATE TABLE `zabank_service`.`Untitled`  (
+                                              `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+                                              `store_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '门店名称',
+                                              `status` int(1) NULL DEFAULT NULL COMMENT '状态',
+                                              `open_time` int(10) NOT NULL COMMENT '营业时间',
+                                              `close_time` int(10) NOT NULL COMMENT '营业时间',
+                                              `mobile` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '联系电话',
+                                              `city_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '城市名称',
+                                              `area_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '区名称',
+                                              `longitude` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '经度',
+                                              `labels` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '标签',
+                                              `latitude` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '纬度',
+                                              `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '创建人',
+                                              `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                              `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
+                                              `update_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+                                              `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '删除标识',
+                                              `tenant_id` bigint(20) NOT NULL COMMENT '租户Id',
+                                              PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '门店信息表' ROW_FORMAT = Dynamic;

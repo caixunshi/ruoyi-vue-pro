@@ -33,7 +33,6 @@ public class AppBannerController {
     // TODO @xia：新建一个 AppBannerRespVO，只返回必要的字段。status 要过滤下。然后 sort 下结果
     @GetMapping("/list")
     @Operation(summary = "获得banner列表")
-    @PreAuthorize("@ss.hasPermission('market:banner:query')")
     public CommonResult<List<BannerRespVO>> getBannerList() {
         List<BannerDO> list = bannerService.getBannerList();
         return success(BannerConvert.INSTANCE.convertList(list));

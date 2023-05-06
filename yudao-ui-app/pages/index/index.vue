@@ -106,7 +106,8 @@
       }
     },
     onLoad() {
-      this.loadBannerData()
+      // 加载banner数据
+      // this.loadBannerData()
     },
     methods: {
       loadBannerData() {

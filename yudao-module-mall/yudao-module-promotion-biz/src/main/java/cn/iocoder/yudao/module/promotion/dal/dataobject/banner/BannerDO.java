@@ -1,6 +1,6 @@
 package cn.iocoder.yudao.module.promotion.dal.dataobject.banner;
 
-import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
+import cn.iocoder.yudao.framework.tenant.core.db.TenantBaseDO;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.*;
 
@@ -16,7 +16,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BannerDO extends BaseDO {
+public class BannerDO extends TenantBaseDO {
 
     /**
      * 编号
@@ -29,7 +29,7 @@ public class BannerDO extends BaseDO {
     /**
      * 跳转链接
      */
-    private String url;
+    private String jumpUrl;
     /**
      * 图片链接
      */
@@ -43,11 +43,9 @@ public class BannerDO extends BaseDO {
      * 状态 {@link cn.iocoder.yudao.framework.common.enums.CommonStatusEnum}
      */
     private Integer status;
+
     /**
      * 备注
      */
     private String memo;
-
-    // TODO 芋艿 点击次数。&& 其他数据相关
-
 }

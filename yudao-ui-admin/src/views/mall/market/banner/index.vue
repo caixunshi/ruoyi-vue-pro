@@ -42,7 +42,7 @@
           <img v-if="scope.row.picUrl" :src="scope.row.picUrl" alt="缩略图片" class="img-height"/>
         </template>
       </el-table-column>
-      <el-table-column label="跳转链接" align="center" prop="url"/>
+      <el-table-column label="跳转链接" align="center" prop="jumpUrl"/>
       <el-table-column label="排序" align="center" prop="sort"/>
       <el-table-column label="描述" align="center" prop="memo"/>
       <el-table-column label="状态" align="center" prop="status">
@@ -79,8 +79,8 @@
         <el-form-item label="缩略图" prop="picUrl">
           <imageUpload v-model="form.picUrl" :limit="1"/>
         </el-form-item>
-        <el-form-item label="跳转链接" prop="url">
-          <el-input v-model="form.url" placeholder="请输入跳转链接"/>
+        <el-form-item label="跳转链接" prop="jumpUrl">
+          <el-input v-model="form.jumpUrl" placeholder="请输入跳转链接"/>
         </el-form-item>
         <el-form-item label="排序" prop="sort">
           <el-input v-model="form.sort" placeholder="请输入排序"/>
@@ -151,7 +151,7 @@ export default {
       rules: {
         title: [{required: true, message: "标题不能不空", trigger: "blur"}],
         picUrl: [{required: true, message: "图片地址不能为空", trigger: "blur"}],
-        url: [{required: true, message: "跳转地址不能为空", trigger: "blur"}],
+        jumpUrl: [{required: true, message: "跳转地址不能为空", trigger: "blur"}],
         sort: [{required: true, message: "排序不能为空", trigger: "blur"}],
         status: [{required: true, message: "状态不能为空", trigger: "change"}],
       }

@@ -21,7 +21,7 @@ public class BannerBaseVO {
 
     @Schema(description = "跳转链接", required = true)
     @NotNull(message = "跳转链接不能为空")
-    private String url;
+    private String jumpUrl;
 
     @Schema(description = "图片地址", required = true)
     @NotNull(message = "图片地址不能为空")

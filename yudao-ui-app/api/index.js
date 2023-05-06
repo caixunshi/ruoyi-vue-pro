@@ -2,6 +2,6 @@
 const { http } = uni.$u
 
 // 获取滚动图数据
-export const getBannerData = params => http.get('/index', { params })
+export const getBannerData = params => http.get('/market/banner/list', { params })
 // 获取滚动通知数据
 export const getNoticeData = params => http.get('/notice', { params })

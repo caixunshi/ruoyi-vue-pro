@@ -163,4 +163,6 @@ public interface ErrorCodeConstants {
     // ========== 站内信发送 1002028000 ==========
     ErrorCode NOTIFY_SEND_TEMPLATE_PARAM_MISS = new ErrorCode(1002025000, "模板参数({})缺失");
 
+    // =====门店管理=======
+    ErrorCode STORE_INFO_NOT_EXISTS = new ErrorCode(1002027000, "门店信息不存在");
 }
