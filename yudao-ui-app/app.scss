@@ -6,3 +6,10 @@
 	box-sizing: border-box;
 	height: 100%;
 }
+body {
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+uni-page-head {
+	display: none;
+}

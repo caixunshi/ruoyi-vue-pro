@@ -1,6 +1,6 @@
 <template>
   <view class="container">
-    <u-sticky offset-top="0">
+    <view>
       <!--轮播图-->
       <yd-banner :banner-list="bannerList"></yd-banner>
       <!--搜索栏-->
@@ -11,7 +11,7 @@
         <w-picker :visible.sync="regionVisible" mode="region" :value="defaultRegion" default-type="value"
           :hide-area="false" @confirm="onConfirm($event, 'region')" @cancel="onCancel" ref="region"></w-picker>
       </view>
-    </u-sticky>
+    </view>
     <u-list>
       <u-list-item>
         <u-cell v-for="(item, index) in storeList" :key="index">
@@ -52,6 +52,8 @@
             </u-row>
           </view>
         </u-cell>
+        <u-gap height="220"></u-gap>
+
       </u-list-item>
     </u-list>
 
@@ -79,21 +81,85 @@
         bannerList: [{
             id: 1,
             title: '山不在高，有仙则名',
-            url: 'https://img1.baidu.com/it/u=3298304243,1273560633&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500'
+            url: 'https://big.justeasy.cn/effect/201808/20180820095319_5b7a1f0fada77.jpg'
           },
           {
             id: 2,
             title: '水不在深，有龙则灵',
-            url: 'https://cdn.uviewui.com/uview/swiper/swiper3.png'
+            url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.alicdn.com%2Fbao%2Fuploaded%2Fi3%2F2208039127442%2FO1CN01eUZIjo24qUGCU2A0I_%21%210-item_pic.jpg&refer=http%3A%2F%2Fimg.alicdn.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1685313520&t=581dcbc8d5580225f209b641e862224d'
           },
           {
             id: 3,
             title: '斯是陋室，惟吾德馨',
-            url: 'https://cdn.uviewui.com/uview/swiper/swiper3.png'
+            url: 'https://img.zx123.cn/Resources/zx123cn/uploadfile/2015/0526/a56f4a17a1a1580cdd93c259b77b8ca8.jpg'
           }
         ],
         storeList: [{
+            storeName: "华侨新春工作室0",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
             storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
+            storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
+            storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
+            storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
+            storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
+            storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
+            storeName: "华侨新春工作室1",
+            distance: "889m",
+            labels: ["VVIP", "V次卡", "代金券"],
+            status: "休息中",
+            openTime: "11:33 -23:00",
+            mobile: "18124671230",
+            address: "深圳市宝安区华侨新春西堤三巷21号"
+          },{
+            storeName: "华侨新春工作室10",
             distance: "889m",
             labels: ["VVIP", "V次卡", "代金券"],
             status: "休息中",

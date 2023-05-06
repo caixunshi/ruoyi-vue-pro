@@ -12,6 +12,12 @@
     		"navigationBarTitleText": "剪发"
     	}
     },
+    {
+    	"path": "pages/order/list",
+    	"style": {
+    		"navigationBarTitleText": "我的订单"
+    	}
+    },
 		{
 			"path": "pages/category/category",
 			"style": {
@@ -81,12 +87,6 @@
       }
     },
     {
-      "path": "pages/order/list",
-      "style": {
-        "navigationBarTitleText": "我的订单"
-      }
-    },
-    {
       "path": "pages/order/detail",
       "style": {
         "navigationBarTitleText": "订单详情"
@@ -129,33 +129,27 @@
 		"list": [
 			{
 				"pagePath": "pages/index/index",
-				"text": "首页",
-				"iconPath": "/static/images/tabbar/index.png",
-				"selectedIconPath": "/static/images/tabbar/index-active.png"
+				"text": "剪发",
+				"iconPath": "/static/images/tabbar/scissors-line.svg",
+				"selectedIconPath": "/static/images/tabbar/scissors-line-active.svg"
 			},
 			{
-				"pagePath": "pages/category/category",
-				"text": "分类",
-				"iconPath": "/static/images/tabbar/category.png",
-				"selectedIconPath": "/static/images/tabbar/category-active.png"
-			},
-			{
-				"pagePath": "pages/cart/cart",
-				"text": "购物车",
-				"iconPath": "/static/images/tabbar/cart.png",
-				"selectedIconPath": "/static/images/tabbar/cart-active.png"
+				"pagePath": "pages/order/list",
+				"text": "订单",
+				"iconPath": "/static/images/tabbar/transaction-order.svg",
+				"selectedIconPath": "/static/images/tabbar/transaction-order-active.svg"
 			},
 			{
 				"pagePath": "pages/user/user",
 				"text": "我的",
-				"iconPath": "/static/images/tabbar/user.png",
-				"selectedIconPath": "/static/images/tabbar/user-active.png"
+				"iconPath": "/static/images/tabbar/user.svg",
+				"selectedIconPath": "/static/images/tabbar/user-active.svg"
 			}
 		]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "yudao-ui-app",
+		"navigationBarTitleText": "star 星快剪",
 		"navigationBarBackgroundColor": "#ffffff",
 		"backgroundColor": "#ffffff"
 	}

@@ -2,7 +2,7 @@
   <view class="container">
     <view class="user-header">
       <view class="user-info" @click="pageRouter('/pages/profile/profile')">
-        <u-avatar size="60" shape="square" :src="userInfo.avatar"></u-avatar>
+        <u-avatar size="60" shape="circle" :src="userInfo.avatar"></u-avatar>
         <view class="info-text">
           <view class="user-nickname">{{ hasLogin ? userInfo.nickname || '会员用户' : '匿名用户' }}</view>
           <view class="user-mobile">{{ hasLogin ? userInfo.mobile || ' ' : '登录/注册' }}</view>
@@ -17,20 +17,29 @@
 
     <view>
       <view class="order-header">
-        <text class="order-title">我的订单</text>
-        <view class="see-all" @click="pageRouter(orderPage, -1)">
-          <text>查看全部</text>
-          <u-icon name="arrow-right"></u-icon>
-        </view>
+        <text class="order-title">我的服务</text>
       </view>
 
       <view class="order-status-box">
-        <u-grid :border="false" :col="orderStatusList.length">
-          <u-grid-item v-for="(item, index) in orderStatusList" :key="index" @click="pageRouter(orderPage, item.status)">
-            <u-icon :name="item.icon" :size="32"></u-icon>
-            <text class="grid-title">{{ item.name }}</text>
+        <u-grid :border="false" :col="4">
+          <u-grid-item key="1" @click="pageRouter(orderPage, item.status)">
+            <u-icon name="order" size="32"></u-icon>
+            <text class="grid-title">我的订单</text>
+          </u-grid-item>
+          <u-grid-item key="1" @click="pageRouter(orderPage, item.status)">
+            <u-icon name="photo" size="32"></u-icon>
+            <text class="grid-title">我的发型</text>
+          </u-grid-item>
+          <u-grid-item key="1" @click="pageRouter(orderPage, item.status)">
+            <u-icon name="bell" size="32"></u-icon>
+            <text class="grid-title">剪发提醒</text>
+          </u-grid-item>
+          <u-grid-item key="1" @click="pageRouter(orderPage, item.status)">
+            <u-icon name="setting" size="32"></u-icon>
+            <text class="grid-title">员工入口</text>
           </u-grid-item>
         </u-grid>
+
       </view>
     </view>
 
@@ -48,10 +57,9 @@
     <u-gap height="10" bgColor="#f3f3f3"></u-gap>
 
     <u-cell-group class="fun-list">
-      <u-cell class="fun-item" :border="false" icon="gift" title="分销中心" isLink></u-cell>
-      <u-cell class="fun-item" :border="false" icon="tags" title="领券中心" isLink></u-cell>
-      <u-cell class="fun-item" :border="false" icon="coupon" title="我的优惠券" isLink></u-cell>
-      <u-cell class="fun-item" :border="false" icon="map" title="收货地址" @click="pageRouter('/pages/address/list')" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="gift" title="邀请好友" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="kefu-ermai" title="联系客服" isLink></u-cell>
+      <u-cell class="fun-item" :border="false" icon="edit-pen" title="意见反馈" isLink></u-cell>
     </u-cell-group>
   </view>
 </template>
@@ -64,9 +72,9 @@ export default {
     return {
       orderPage: '/pages/order/list',
       statList: [
-        { value: '0', title: '我的收藏' },
-        { value: '0', title: '我的消息' },
-        { value: '0', title: '我的足迹' }
+        { value: '0', title: '优惠券' },
+        { value: '0', title: '积分' },
+        { value: '0', title: '我的收藏' }
       ]
     }
   },
