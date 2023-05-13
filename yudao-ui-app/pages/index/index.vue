@@ -5,8 +5,9 @@
       <yd-banner :banner-list="bannerList"></yd-banner>
       <!--搜索栏-->
       <view class="search-wrap">
-        <u-search :label="addressText" bgColor="" border-color="#f2f2f2" :searchIcon="searchIcon" searchIconSize="10"
-          placeholder="请搜索" :show-action="true"  @clickIcon="hideKeyboard()">
+        <u-search :label="addressCity + ' ' + addressArea" bgColor="" border-color="#f2f2f2" :searchIcon="searchIcon"
+          v-model="storeName" @search="onSearch()" @custom="onSearch()" @clickIcon="hideKeyboard()"
+          searchIconSize="10" placeholder="请输入门店名称" :show-action="true">
         </u-search>
         <w-picker :visible.sync="regionVisible" mode="region" :value="defaultRegion" default-type="value"
           :hide-area="false" @confirm="onConfirm($event, 'region')" @cancel="onCancel" ref="region"></w-picker>
@@ -21,20 +22,24 @@
                 <u--text size="14" :bold="true" :text="item.storeName"></u--text>
               </u-col>
               <u-col span="2">
-                <u--text size="12" color="red" align="center" :text="item.distance"></u--text>
+                <u--text size="12" color="red" align="center" :text="distanceGenetate(item)"></u--text>
               </u-col>
             </u-row>
             <u-row style="margin-top: 5px;">
-              <span v-for="(labelItem, labelIndex) in item.labels" :key="labelIndex">
-                <u-tag style="margin-right: 5px;" shape="circle" size="mini" :text="labelItem" color="#ccc"
-                  borderColor="#ccc" plain></u-tag>
-              </span>
+              <u-notice-bar style="padding: 2px 12px" v-if="!!item.labels" fontSize="12" :text="item.labels"></u-notice-bar>
             </u-row>
-            <u-row style="margin-top: 10px;">
-              <u-tag :text="item.status" color="#007aff" borderColor="#ccc" bgColor="#ccc" size="mini" plain plainFill>
-              </u-tag>
-              <span style="font-size: 12px;margin-left: 5px;color:orangered">营业时间</span>
-              <span style="font-size: 12px;margin-left: 5px;color:orangered">{{item.openTime}}</span>
+            <!--营业状态-->
+            <u-row v-if="statusGenerate(item) === 0" style="margin-top: 10px;">
+              <u-icon name="cut" color="#5ac725" style="margin-right: 2px;"></u-icon>
+              <u--text type="success" size="12" text="营业中"></u--text>
+              <span style="font-size: 12px;margin-left: 5px;color:#5ac725">营业时间</span>
+              <span style="font-size: 12px;margin-left: 5px;color:#5ac725">{{openTimeGenerate(item)}}</span>
+            </u-row>
+            <u-row v-else style="margin-top: 10px;">
+              <u-icon name="clock" color="#f56c6c" style="margin-right: 2px;"></u-icon>
+              <u--text type="error" size="12" text="休息中"></u--text>
+              <span style="font-size: 12px;margin-left: 5px;color:#f56c6c">营业时间</span>
+              <span style="font-size: 12px;margin-left: 5px;color:#f56c6c">{{openTimeGenerate(item)}}</span>
             </u-row>
             <u-row style="margin-top: 10px;">
               <u-icon size="20" name="phone" color="#ccc"></u-icon>
@@ -64,7 +69,7 @@
 <script>
   import {
     getBannerData,
-    getNoticeData
+    getStoreList
   } from '../../api/index'
   import {
     getAddressById,
@@ -75,9 +80,12 @@
     data() {
       return {
         regionVisible: false,
-        addressText: "深圳市 宝安区",
-        addressCode: [],
+        addressCity: "深圳市",
+        addressArea: "宝安区",
+        storeName: "",
         searchIcon: "arrow-down-fill",
+        latitude: 0,
+        longitude: 0,
         bannerList: [{
             id: 1,
             title: '山不在高，有仙则名',
@@ -94,106 +102,40 @@
             url: 'https://img.zx123.cn/Resources/zx123cn/uploadfile/2015/0526/a56f4a17a1a1580cdd93c259b77b8ca8.jpg'
           }
         ],
-        storeList: [{
-            storeName: "华侨新春工作室0",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室1",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室1",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室1",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室1",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室1",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室1",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室1",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          },{
-            storeName: "华侨新春工作室10",
-            distance: "889m",
-            labels: ["VVIP", "V次卡", "代金券"],
-            status: "休息中",
-            openTime: "11:33 -23:00",
-            mobile: "18124671230",
-            address: "深圳市宝安区华侨新春西堤三巷21号"
-          }
-        ],
+        storeList: [],
         defaultRegion: ["440000", "440300", "440306"]
       }
     },
     onLoad() {
       // 加载banner数据
       // this.loadBannerData()
+      this.loadStoreInfo()
+      this.$wx.getlocation((data) => {
+        console.log("获取到经纬度信息:", data)
+        this.latitude = data.latitude;
+        this.longitude = data.longitude;
+      })
     },
     methods: {
       openLocation() {
-        console.log("xxxxxx");
-        // wx.getLocation({
-        //  type: 'gcj02', //Returns the latitude and longitude that can be used for wx.openLocation
-        //  success (res) {
-        //    const latitude = res.latitude
-        //    const longitude = res.longitude
-        //    wx.openLocation({
-        //      latitude,
-        //      longitude,
-        //      scale: 18
-        //    })
-        //  }
-        // })
+        wx.openLocation({
+          latitude: this.latitude,
+          longitude: this.longitude,
+          scale: 18
+        })
       },
       loadBannerData() {
         getBannerData().then(res => {
           this.bannerList = res.data
+        })
+      },
+      loadStoreInfo() {
+        getStoreList({
+          cityName: this.addressCity,
+          areaName: this.addressArea,
+          storeName: this.storeName
+        }).then(res => {
+          this.storeList = res.data.list
         })
       },
       handleSearchClick(e) {
@@ -202,8 +144,10 @@
       onConfirm(res) {
         console.log("confirm", res);
         this.searchIcon = "arrow-down-fill"
-        this.addressCode = res.value;
-        this.addressText = res.obj.city.label + " " + res.obj.area.label
+        this.addressCity = res.obj.city.label;
+        this.addressArea = res.obj.area.label;
+        // 重新加载门店数据
+        this.loadStoreInfo();
       },
       onCancel() {
         this.searchIcon = "arrow-down-fill"
@@ -211,8 +155,35 @@
       hideKeyboard() {
         this.searchIcon = "arrow-up-fill"
         this.regionVisible = true;
-        console.log("hiden key board")
         uni.hideKeyboard()
+      },
+      onSearch() {
+        // 重新加载门店数据
+        this.loadStoreInfo();
+      },
+      // 计算营业时间
+      openTimeGenerate(item) {
+          let openTimeStr = new String(item.openTime);
+          let closeTimeStr = new String(item.closeTime);
+          return openTimeStr.substring(0, 2) + ":" + openTimeStr.substring(2)
+          + "~" + closeTimeStr.substring(0, 2) + ":" + closeTimeStr.substring(2)
+      },
+      // 计算当前状态
+      statusGenerate(item) {
+          if (item.status == 1) {
+            return 1;
+          } else {
+            let now = Number(new Date().getHours() + "" + new Date().getMinutes());
+            if (now < item.openTime || now > item.closeTime) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+      },
+      // 根据经纬度与当前定位计算距离
+      distanceGenetate(item) {
+        return this.$wx.getDistance(this.latitude, this.longitude, item.latitude, item.longitude)
       }
     },
     computed: {

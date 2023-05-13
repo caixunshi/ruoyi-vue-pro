@@ -61,4 +61,6 @@ public interface ErrorCodeConstants {
     ErrorCode AUTO_REPLY_ADD_MESSAGE_FAIL_EXISTS = new ErrorCode(1006009002, "操作失败，原因：已存在该消息类型的回复");
     ErrorCode AUTO_REPLY_ADD_KEYWORD_FAIL_EXISTS = new ErrorCode(1006009003, "操作失败，原因：已关在该关键字的回复");
 
+    // 门店管理
+    ErrorCode EMPLOYEE_NOT_EXISTS = new ErrorCode(1006010004, "员工信息不存在");
 }

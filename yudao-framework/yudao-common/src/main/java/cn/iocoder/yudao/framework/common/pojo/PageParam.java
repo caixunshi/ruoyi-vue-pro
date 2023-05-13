@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class PageParam implements Serializable {
 
     private static final Integer PAGE_NO = 1;
-    private static final Integer PAGE_SIZE = 10;
+    private static final Integer PAGE_SIZE = 20;
 
     @Schema(description = "页码，从 1 开始", required = true,example = "1")
     @NotNull(message = "页码不能为空")

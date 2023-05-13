@@ -27,7 +27,6 @@ export const DICT_TYPE = {
   SYSTEM_OAUTH2_GRANT_TYPE: 'system_oauth2_grant_type',
   SYSTEM_MAIL_SEND_STATUS: 'system_mail_send_status',
   SYSTEM_NOTIFY_TEMPLATE_TYPE: 'system_notify_template_type',
-  SYSTEM_STORE_STATUS: 'store_status',
 
   // ========== INFRA 模块 ==========
   INFRA_BOOLEAN_STRING: 'infra_boolean_string',
@@ -65,6 +64,7 @@ export const DICT_TYPE = {
   // ========== MP 模块 ==========
   MP_AUTO_REPLY_REQUEST_MATCH: 'mp_auto_reply_request_match', // 自动回复请求匹配类型
   MP_MESSAGE_TYPE: 'mp_message_type', // 消息类型
+  MP_STORE_STATUS: 'mp_store_status', // 消息类型
 
   // ========== MALL - PRODUCT 模块 ==========
   PRODUCT_SPU_STATUS: 'product_spu_status', // 商品 SPU 状态

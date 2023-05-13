@@ -61,11 +61,4 @@ public class DeptDO extends TenantBaseDO {
      */
     private Integer status;
 
-    private Integer openStartTime;
-
-    private Integer openEndTime;
-
-    private String labels;
-
-    private String address;
 }
